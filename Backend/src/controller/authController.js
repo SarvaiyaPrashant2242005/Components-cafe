@@ -5,10 +5,11 @@ const sendOTP = require("../utils/sendOtp");
 const otpStore = require("../utils/otpstore");
 
 const generateToken = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: user._id, name: user.name }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 };
+
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
