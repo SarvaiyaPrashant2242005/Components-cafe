@@ -8,7 +8,7 @@ const connectDB = require("./src/config/db.config");
 dotenv.config();
 const authRoutes = require("./src/routes/userRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
-
+const productRouts = require("./src/routes/productRoutes");
 const app = express();
 
 // Middleware
@@ -26,6 +26,8 @@ app.get("/test", (req,res) => {
 // Apis
 app.use("/user",authRoutes);
 app.use("/category", categoryRoutes);
+app.use("/products", productRouts);
+
 
 // Server
 app.listen(PORT , ()=>console.log(`Server Running on port ${PORT}`));
