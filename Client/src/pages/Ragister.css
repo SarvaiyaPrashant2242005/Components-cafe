@@ -1,0 +1,65 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* RegisterPage.css */
+body {
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.register-container {
+  max-width: 400px;
+  margin: 12% auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.register-container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.register-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.register-container button:hover {
+  background-color: #0056b3;
+}
+
+.register-container .login-btn {
+  background-color: #6c757d;
+  margin-top: 10px;
+}
+
+.register-container .login-btn:hover {
+  background-color: #495057;
+}

@@ -1,0 +1,50 @@
+/* OTPVerifyPage.css */
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.otp-container {
+  max-width: 400px;
+  margin: 12rem auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f0f8ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.otp-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.otp-container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.otp-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.otp-container button:hover {
+  background-color: #218838;
+}

@@ -1,62 +1,94 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import "./LoginPage.css";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
-
-  // ✅ Redirect if OTP not verified
-//   useEffect(() => {
-//     const verified = localStorage.getItem("otp_verified");
-//     if (verified !== "true") {
-//       alert("Please complete OTP verification first");
-//       navigate("/register");
-//     }
-//   }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://components-cafe.onrender.com/user/login", {
-        email,
-        password
-      });
+      const response = await axios.post(
+        "https://components-cafe.onrender.com/user/login",
+        {
+          email,
+          password,
+        }
+      );
 
-      if (response.data && response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/desktop");
-      } else {
-        alert("User not found");
+      // ✅ Check token presence in response
+if (response.data && response.data.token) {
+  const token = response.data.token;
+
+  if (rememberMe) {
+    localStorage.setItem("token", token);
+  } else {
+    sessionStorage.setItem("token", token);
+  }
+
+  Cookies.set("token", token, { expires: rememberMe ? 7 : 1 });
+
+  // ❌ DO NOT STORE undefined user
+  // Cookies.set("user", JSON.stringify(response.data.user)); ← Remove this
+
+  navigate("/desktop");
+} else {
+        alert("Login failed: No token received");
       }
-    } catch {
-      alert("Invalid credentials or user not found");
+    } catch (error) {
+      console.error("Login error:", error);
+
+      // ✅ Show specific message for unverified email
+      if (error.response && error.response.status === 403) {
+        alert("Email not verified. Please check your inbox.");
+      } else {
+        alert("Invalid credentials or user not found");
+      }
     }
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Login Page</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        /><br /><br />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /><br /><br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Login Page</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label className="remember-checkbox">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={() => setRememberMe(!rememberMe)}
+            />
+            <span className="custom-checkbox"></span>
+            Remember Me
+          </label>
+
+          <button type="submit">Login</button>
+        </form>
+
+        <button className="sign" onClick={() => navigate("/register")}>
+          Sign Up
+        </button>
+      </div>
     </div>
   );
 }

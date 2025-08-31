@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Ragister.css"; // Import the CSS
 
 function RegisterPage() {
   const [name, setName] = useState("");
@@ -12,11 +13,9 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      // Save email and password temporarily
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
 
-      // Call your register API
       const response = await axios.post("https://components-cafe.onrender.com/user/register", {
         name,
         email,
@@ -36,7 +35,7 @@ function RegisterPage() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className="register-container">
       <h2>Register Page</h2>
       <form onSubmit={handleRegister}>
         <input
@@ -45,7 +44,7 @@ function RegisterPage() {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-        /><br /><br />
+        />
 
         <input
           type="email"
@@ -53,7 +52,7 @@ function RegisterPage() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        /><br /><br />
+        />
 
         <input
           type="password"
@@ -61,10 +60,14 @@ function RegisterPage() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        /><br /><br />
+        />
 
         <button type="submit">Register</button>
       </form>
+
+      <button className="login-btn" onClick={() => navigate("/login")}>
+        Already have an account? Login
+      </button>
     </div>
   );
 }

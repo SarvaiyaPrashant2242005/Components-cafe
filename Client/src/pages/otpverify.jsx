@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./otp.css";
 
 function OTPVerifyPage() {
   const [otp, setOtp] = useState("");
@@ -19,7 +20,7 @@ function OTPVerifyPage() {
 
       if (response.data.status) {
         alert("OTP verified successfully. Now you can login.");
-        navigate("/");
+        navigate("/login");
       } else {
         alert("OTP verification failed");
       }
@@ -30,7 +31,7 @@ function OTPVerifyPage() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className="otp-container">
       <h2>Enter OTP</h2>
       <form onSubmit={handleVerify}>
         <input
@@ -39,7 +40,7 @@ function OTPVerifyPage() {
           required
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
-        /><br /><br />
+        />
 
         <button type="submit">Verify</button>
       </form>
